@@ -24,15 +24,16 @@ function getData() {
   return clientesFintech;
 }
 
-async function postDataAPI() {
+async function postDataAPI(clienteData) {
   try {
-    const response = await axios.post(`${apiFintech}api/cliente/`);
+    const response = await axios.post(`${apiFintech}api/cliente/`, clienteData);
 
     nuevoClienteFintech = response.data;
 
     console.log(nuevoClienteFintech);
   } catch (error) {
-    console.error("Error al traer la data de la API:", error.message);
+    console.error("Error al crear el cliente:", error.message);
+    console.error("Detalles del error:", error.response.data); // Muestra más detalles del error
 
     throw new Error("Error desde la API");
   }

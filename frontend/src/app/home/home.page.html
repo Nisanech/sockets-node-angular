@@ -1,19 +1,108 @@
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
 
-      <th>Apellidos</th>
-    </tr>
-  </thead>
+              <th>Apellidos</th>
+            </tr>
+          </thead>
 
-  <tbody>
-    <tr *ngFor="let cliente of listClientes">
-      <td>{{cliente.nombres}}</td>
+          <tbody>
+            <tr *ngFor="let cliente of listClientes">
+              <td>{{cliente.nombres}}</td>
 
-      <td>{{cliente.apellidos}}</td>
-    </tr>
-  </tbody>
-</table>
+              <td>{{cliente.apellidos}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-col>
 
+      <ion-col>
+        <form [formGroup]="clientesForm">
+          <ion-item-divider color="primary">
+            <ion-label>Formulario Para Crear Clientes</ion-label>
+          </ion-item-divider>
+
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Nombre:</ion-label>
+
+                  <ion-input formControlName="nombres" slot="end" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label>Apellidos:</ion-label>
+
+                  <ion-input formControlName="apellidos" slot="end" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label>Numero de identificacion:</ion-label>
+
+                  <ion-input formControlName="no_identificacion" slot="end" type="number"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Direccion:</ion-label>
+
+                  <ion-input formControlName="direccion" slot="end" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label>Telefono:</ion-label>
+
+                  <ion-input formControlName="telefono" slot="end" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label>Correo:</ion-label>
+
+                  <ion-input formControlName="email" slot="end" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Sexo:</ion-label>
+
+                  <ion-input formControlName="sexo" slot="end" type="text"></ion-input>
+                </ion-item>
+              </ion-col>
+
+              <ion-col>
+                <ion-item>
+                  <ion-label>Fecha Nacimiento:</ion-label>
+
+                  <ion-input formControlName="fecha_nacimiento" slot="end" type="date"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-button (click)="crearCliente()">Crear Cliente</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
 

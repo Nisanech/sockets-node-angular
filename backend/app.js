@@ -10,7 +10,11 @@ const io = require("socket.io")(server, {
   },
 });
 
-const { fetchDataFromAPI, getData } = require("./models/dataModel");
+const {
+  fetchDataFromAPI,
+  getData,
+  postDataAPI,
+} = require("./models/dataModel");
 
 app.use(cors());
 
@@ -21,6 +25,21 @@ io.on("connection", async (socket) => {
     clientesData = getData(); // Almacena la data obtenida en la variable global
 
     socket.emit("listarClientes", clientesData); // Envía la data a través del socket
+
+    socket.on("crearCliente", async (clienteData) => {
+      try {
+        await postDataAPI(clienteData); // Procesar la creación del nuevo cliente en la API externa
+
+        // Obtener la lista actualizada de clientes
+        await fetchDataFromAPI();
+        const updatedClientesData = getData();
+
+        // Emitir la lista actualizada a todos los clientes conectados
+        io.emit("listarClientes", updatedClientesData);
+      } catch (error) {
+        console.error("Error al crear el cliente:", error.message);
+      }
+    });
   } catch (error) {
     console.error("Error handling API data:", error.message);
   }

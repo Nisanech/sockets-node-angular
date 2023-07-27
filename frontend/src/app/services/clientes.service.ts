@@ -40,4 +40,32 @@ export class ClientesService {
       }
     });
   }
+
+  public crearCliente(clienteData: any): Observable<any> {
+    return new Observable(observer => {
+      try {
+        this.socket.emit('crearCliente', clienteData); // Emitir el evento 'crearCliente' al servidor
+
+        this.socket.on('listarClientes', (data: any) => {
+          console.log('Actualización de la lista de clientes:', data);
+          observer.next(data);
+        });
+
+        this.socket.on('disconnect', () => {
+          observer.complete();
+        });
+
+        this.socket.on('error', (e: any) => {
+          observer.error(e);
+        });
+
+        this.socket.on('connect_error', (e: any) => {
+          observer.error(e);
+        });
+
+      } catch (e) {
+        observer.error(e);
+      }
+    });
+  }
 }
