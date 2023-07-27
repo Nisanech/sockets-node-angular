@@ -13,7 +13,7 @@ export class HomePage {
 
   ngOnInit(): void {
     this.clienteService.getPrices$().subscribe((data) => {
-      
+
       console.log(data);
       this.listClientes = data.data
 
