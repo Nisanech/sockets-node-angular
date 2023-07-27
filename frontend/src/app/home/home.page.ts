@@ -12,13 +12,11 @@ export class HomePage {
   constructor(private clienteService: ClientesService) {}
 
   ngOnInit(): void {
-    this.clienteService.getPrices$().subscribe((data) => {
+    this.clienteService.getClientes().subscribe((data) => {
 
       console.log(data);
-      this.listClientes = data.data
-
+      this.listClientes = data
     })
-    // this.amounts = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
   }
 
 }

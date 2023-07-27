@@ -7,39 +7,37 @@ import { Observable } from 'rxjs';
 })
 export class ClientesService {
 
-  constructor(private socket: Socket) { }
+  constructor(private socket: Socket) {
+    this.socket = new Socket({ url: 'http://localhost:5000' });
+  }
 
-  public getPrices$(): Observable<any> {
+  public getClientes(): Observable<any> {
     return new Observable(observer => {
       try {
-
-        this.socket.on('connect', () => { //TODO Nativo!
+        this.socket.on('connect', () => {
           console.log('Conectado!');
-        })
+        });
 
-        this.socket.on('listarClientes', (data: any) => { //TODO Nuestro evento!!
-          console.log('Llego la data! :)');
-          observer.next(data)
+        this.socket.on('listarClientes', (data: any) => {
+          console.log('Llego la data! :)', data);
+          observer.next(data);
+        });
 
-        })
+        this.socket.on('disconnect', () => {
+          observer.complete();
+        });
 
-        this.socket.on('disconnect', () => { //TODO Nativo!
-          observer.complete()
-        })
+        this.socket.on('error', (e: any) => {
+          observer.error(e);
+        });
 
-        this.socket.on('error', (e: any) => { //TODO Nativo!
-          observer.error(e)
-        })
-
-
-        this.socket.on('connect_error', (e: any) => { //TODO Nativo!
-          observer.error(e)
-        })
-
+        this.socket.on('connect_error', (e: any) => {
+          observer.error(e);
+        });
 
       } catch (e) {
         observer.error(e);
       }
-    })
+    });
   }
 }
