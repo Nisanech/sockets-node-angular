@@ -1,13 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const port = 5000;
+const PORT = process.env.PORT || 5000
 
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
-    origins: ["http://localhost:8100"],
-  },
+    origins: ["*"]
+  }
 });
 
 const {
@@ -45,6 +45,6 @@ io.on("connection", async (socket) => {
   }
 });
 
-server.listen(port, () => {
-  console.log("Server started!");
+server.listen(PORT, () => {
+  console.log(`helloworld: listening on port ${PORT}`);
 });

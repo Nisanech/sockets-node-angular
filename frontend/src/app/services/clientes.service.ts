@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ClientesService {
 
   constructor(private socket: Socket) {
-    this.socket = new Socket({ url: 'http://localhost:5000' });
+    this.socket = new Socket({ url: 'https://pruebasocket-dot-backend-cebar.uc.r.appspot.com/' });
   }
 
   public getClientes(): Observable<any> {
